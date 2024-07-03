@@ -1,4 +1,5 @@
 Flask
 Flask-SQLAlchemy
-pymysql
-python-dotenv
+Flask-Bcrypt
+mysqlclient
+
