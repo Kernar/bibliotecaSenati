@@ -1,0 +1,37 @@
+<!-- templates/gestionar_libros.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Libros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gestionar_libros.css') }}">
+</head>
+<body>
+    <h1>Gestionar Libros</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Disponible</th>
+                <th>En Reserva</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+            <tr>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.autor }}</td>
+                <td>{{ 'Sí' if libro.disponibilidad else 'No' }}</td>
+                <td>{{ 'Sí' if libro.en_reserva else 'No' }}</td>
+                <td>
+                    <a href="{{ url_for('modificar_libro', libro_id=libro.libro_id) }}">Modificar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

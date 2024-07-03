@@ -21,6 +21,8 @@ class Libro(db.Model):
     palabras_clave = db.Column(db.Text)
     disponibilidad = db.Column(db.Boolean, nullable=False, default=True)
     ubicacion = db.Column(db.String(100), nullable=False)
+    en_reserva = db.Column(db.Boolean, nullable=False, default=False)
+
 
 class Prestamo(db.Model):
     __tablename__ = 'Prestamos'

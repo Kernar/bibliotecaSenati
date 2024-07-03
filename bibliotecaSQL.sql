@@ -19,7 +19,7 @@ VALUES ('root', 'root', 'root@example.com', 'root', 'estudiante', 1);
 INSERT INTO Usuarios (nombre, apellido, email, contrasena, tipo_usuario, nivel_acceso)
 VALUES ('María', 'González', 'maria@example.com', 'password456', 'personal', 2);
 INSERT INTO Usuarios (nombre, apellido, email, contrasena, tipo_usuario, nivel_acceso)
-VALUES ('root', 'root', 'root2@example.com', 'root', 'estudiante', 1);
+VALUES ('root', 'root', 'root', 'root', 'estudiante', 1);
 
 CREATE TABLE Libros (
     libro_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -31,8 +31,8 @@ CREATE TABLE Libros (
     ubicacion VARCHAR(100)
 );
 
-
-
+ALTER TABLE Libros ADD en_reserva boolean;
+select * from Libros;
 
 
 

@@ -37,26 +37,28 @@ def registro():
         nombre = request.form['nombre']
         apellido = request.form['apellido']
         email = request.form['email']
-        contrasena = request.form['contrasena']
-        tipo_usuario = request.form['tipo_usuario']
-        nivel_acceso = request.form['nivel_acceso']
-        
+        password = request.form['password']
+
+        if Usuario.query.filter_by(email=email).first():
+            flash('Email ya registrado', 'danger')
+            return redirect(url_for('registro'))
+
         nuevo_usuario = Usuario(
             nombre=nombre,
             apellido=apellido,
             email=email,
-            contrasena=contrasena,  # Si decides encriptar la contraseña, usa generate_password_hash(contrasena)
-            tipo_usuario=tipo_usuario,
-            nivel_acceso=nivel_acceso
+            contrasena=password,
+            tipo_usuario='estudiante',
+            nivel_acceso=1
         )
-        
         db.session.add(nuevo_usuario)
         db.session.commit()
-        
+
         flash('Usuario registrado con éxito', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     
     return render_template('registro.html')
+
 
 
 @app.route('/prestamo/<int:libro_id>')
@@ -146,6 +148,35 @@ def confirmar_reserva(libro_id):
     flash('Reserva realizada con éxito', 'success')
     return redirect(url_for('libreria'))
 
+@app.route('/gestionar_libros')
+def gestionar_libros():
+    # Check if the user is logged in and has access level 2
+    if not session.get('user_id') or session.get('nivel_acceso') != 2:
+        return redirect(url_for('index'))
+    
+    libros = Libro.query.all()
+    return render_template('gestionar_libros.html', libros=libros)
+
+@app.route('/modificar_libro/<int:libro_id>')
+def modificar_libro(libro_id):
+    # Check if the user is logged in and has access level 2
+    if not session.get('user_id') or session.get('nivel_acceso') != 2:
+        return redirect(url_for('index'))
+    
+    libro = Libro.query.get_or_404(libro_id)
+    return render_template('modificar_libro.html', libro=libro)
+
+@app.route('/actualizar_libro/<int:libro_id>', methods=['POST'])
+def actualizar_libro(libro_id):
+    # Check if the user is logged in and has access level 2
+    if not session.get('user_id') or session.get('nivel_acceso') != 2:
+        return redirect(url_for('index'))
+    
+    libro = Libro.query.get_or_404(libro_id)
+    libro.disponibilidad = request.form.get('disponibilidad') == 'true'
+    libro.en_reserva = request.form.get('en_reserva') == 'true'
+    db.session.commit()
+    return redirect(url_for('gestionar_libros'))
 
 
 if __name__ == '__main__':

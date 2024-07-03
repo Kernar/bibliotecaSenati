@@ -1,0 +1,28 @@
+<!-- templates/modificar_libro.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Libro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modificar_libro.css') }}">
+</head>
+<body>
+    <h1>Modificar Libro: {{ libro.titulo }}</h1>
+    <form action="{{ url_for('actualizar_libro', libro_id=libro.libro_id) }}" method="post">
+        <label for="disponibilidad">Disponible:</label>
+        <select name="disponibilidad" id="disponibilidad">
+            <option value="true" {% if libro.disponibilidad %}selected{% endif %}>Sí</option>
+            <option value="false" {% if not libro.disponibilidad %}selected{% endif %}>No</option>
+        </select>
+        <br>
+        <label for="en_reserva">En Reserva:</label>
+        <select name="en_reserva" id="en_reserva">
+            <option value="true" {% if libro.en_reserva %}selected{% endif %}>Sí</option>
+            <option value="false" {% if not libro.en_reserva %}selected{% endif %}>No</option>
+        </select>
+        <br>
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>
