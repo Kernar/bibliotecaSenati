@@ -1,0 +1,27 @@
+<!-- templates/prestamo.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prestamo.css') }}">
+    <title>Préstamo de Libro - Biblioteca Senati</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Préstamo de Libro</h1>
+        <h2>{{ libro.titulo }}</h2>
+        <p>Autor: {{ libro.autor }}</p>
+        <p>Categoría: {{ libro.categoria }}</p>
+        <p>Ubicación: {{ libro.ubicacion }}</p>
+        <p>Fecha de Préstamo: {{ fecha_prestamo }}</p>
+
+        <form action="{{ url_for('realizar_prestamo', libro_id=libro.libro_id) }}" method="post">
+            <label for="fecha_devolucion">Fecha de Devolución:</label>
+            <input type="date" id="fecha_devolucion" name="fecha_devolucion" required>
+            <br>
+            <button type="submit">Efectuar Préstamo</button>
+        </form>
+    </div>
+</body>
+</html>

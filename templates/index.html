@@ -9,16 +9,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Biblioteca Senati</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <ul class="flashes">
-            {% for category, message in messages %}
-              <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
+        <h1>Inicio de Sesión</h1>
+
         <form action="{{ url_for('login') }}" method="post">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
@@ -28,6 +20,7 @@
             <br>
             <button type="submit">Iniciar Sesión</button>
         </form>
+        <p>¿No tienes una cuenta? <a href="{{ url_for('registro') }}">Regístrate aquí</a></p>
     </div>
 </body>
 </html>

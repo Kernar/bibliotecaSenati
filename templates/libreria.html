@@ -1,3 +1,4 @@
+<!-- templates/libreria.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +8,28 @@
     <title>Librería - Biblioteca Senati</title>
 </head>
 <body>
-    <h1>Lista de Libros</h1>
-    <ul>
-        {% for libro in libros %}
-            <li>{{ libro.titulo }} - {{ libro.autor }}</li>
-        {% endfor %}
-    </ul>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <div class="container">
+        <h1>Librería</h1>
+        <ul>
+            {% for libro in libros %}
+            <li>
+                <h2>{{ libro.titulo }}</h2>
+                <p>Autor: {{ libro.autor }}</p>
+                <p>Categoría: {{ libro.categoria }}</p>
+                <p>Ubicación: {{ libro.ubicacion }}</p>
+                {% if libro.disponibilidad %}
+                    <button type="submit">
+                    <a href="{{ url_for('prestamo', libro_id=libro.libro_id) }}">Prestar</a>
+                    </button>
+                {% else %}
+                    <p>Libro no disponible</p>
+                    <button type="submit">
+                    <a href="{{ url_for('reservar', libro_id=libro.libro_id) }}">Reservar</a>
+                    </button>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
