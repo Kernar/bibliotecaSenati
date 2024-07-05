@@ -20,6 +20,9 @@ INSERT INTO Usuarios (nombre, apellido, email, contrasena, tipo_usuario, nivel_a
 VALUES ('María', 'González', 'maria@example.com', 'password456', 'personal', 2);
 INSERT INTO Usuarios (nombre, apellido, email, contrasena, tipo_usuario, nivel_acceso)
 VALUES ('root', 'root', 'root', 'root', 'estudiante', 1);
+INSERT INTO Usuarios (nombre, apellido, email, contrasena, tipo_usuario, nivel_acceso)
+VALUES ('asd', 'asd', 'asd@example.com', 'asd', 'personal', 2);
+
 
 CREATE TABLE Libros (
     libro_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -56,6 +59,7 @@ CREATE TABLE Reservas (
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id),
     FOREIGN KEY (libro_id) REFERENCES Libros(libro_id)
 );
+ALTER TABLE Reservas ADD fecha_fin_reserva DATE;
 
 CREATE TABLE Historial_Preferencias (
     preferencia_id INT PRIMARY KEY AUTO_INCREMENT,

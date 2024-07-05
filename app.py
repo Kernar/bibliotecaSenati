@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from config import Config
 from flask_bcrypt import Bcrypt
-from models import db, Usuario, Libro, Prestamo, Reserva  # Asegúrate de importar Prestamo
+from flask_cors import CORS
+from config import Config
+from models import db, Usuario, Libro, Prestamo, Reserva
 import datetime
 
 # Inicializar Flask
@@ -9,8 +10,9 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # Inicializar extensiones
+bcrypt = Bcrypt()
+CORS(app)
 db.init_app(app)
-bcrypt = Bcrypt(app)
 
 @app.route('/')
 def index():
@@ -102,7 +104,7 @@ def realizar_prestamo(libro_id):
     db.session.commit()
 
     flash('Préstamo realizado con éxito', 'success')
-    return redirect(url_for('libreria'))
+    return redirect(url_for('gestionar_libros'))
 
 @app.route('/devolver_prestamo/<int:prestamo_id>', methods=['POST'])
 def devolver_prestamo(prestamo_id):
@@ -129,11 +131,13 @@ def reservar(libro_id):
 def reservar_libro(libro_id):
     libro = Libro.query.get_or_404(libro_id)
     fecha_reserva = datetime.datetime.now().date()
+    fecha_fin_reserva = fecha_reserva + datetime.timedelta(days=14)
 
     reserva = Reserva(
-        usuario_id=session['user_id'],  # ID del usuario actualmente autenticado
+        usuario_id=session.get('user_id'),  # Obtener el ID del usuario actualmente autenticado
         libro_id=libro_id,
         fecha_reserva=fecha_reserva,
+        fecha_fin_reserva=fecha_fin_reserva,
         estado_reserva='activa'
     )
     
@@ -160,6 +164,12 @@ def confirmar_reserva(libro_id):
     
     flash('Reserva realizada con éxito', 'success')
     return redirect(url_for('libreria'))
+
+@app.route('/reservado/<int:libro_id>')
+def reservado(libro_id):
+    libro = Libro.query.get_or_404(libro_id)
+    reserva = Reserva.query.filter_by(libro_id=libro_id).first()
+    return render_template('reservado.html', libro=libro, reserva=reserva)
 
 @app.route('/gestionar_libros')
 def gestionar_libros():

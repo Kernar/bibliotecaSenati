@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Senati - Reservado</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Biblioteca Senati</a>
+        </nav>
+
+        <!-- Título de la página -->
+        <h2 class="text-center mt-5 mb-4">Libro Reservado</h2>
+
+        <!-- Contenido de la página -->
+        <div class="card mx-auto" style="max-width: 600px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ libro.titulo }}</h5>
+                <p class="card-text"><strong>Autor:</strong> {{ libro.autor }}</p>
+                <p class="card-text"><strong>Categoría:</strong> {{ libro.categoria }}</p>
+                <p class="card-text"><strong>Ubicación:</strong> {{ libro.ubicacion }}</p>
+                <p class="card-text"><strong>Fecha de reserva:</strong> {{ reserva.fecha_reserva }}</p>
+                <p class="card-text"><strong>Fecha de fin de reserva:</strong> {{ reserva.fecha_fin_reserva }}</p>
+                <a href="{{ url_for('libreria') }}" class="btn btn-primary mt-3">Volver a la librería</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap y otros -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

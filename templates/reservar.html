@@ -1,27 +1,25 @@
-<!-- templates/reservar.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Libro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reservar.css') }}">
-    <title>Reservar Libro - Biblioteca Senati</title>
 </head>
 <body>
     <div class="container">
-        <h1>Reservar Libro</h1>
-        <h2>{{ libro.titulo }}</h2>
-        <p>Autor: {{ libro.autor }}</p>
-        <p>Categoría: {{ libro.categoria }}</p>
-        <p>Ubicación: {{ libro.ubicacion }}</p>
-        <form action="{{ url_for('confirmar_reserva', libro_id=libro.libro_id) }}" method="post">
-            <label for="fecha_reserva">Fecha de Inicio de Reserva:</label>
-            <input type="date" id="fecha_reserva" name="fecha_reserva" value="{{ fecha_reserva }}" readonly>
-            <br>
-            <label for="fecha_fin_reserva">Fecha de Fin de Reserva:</label>
-            <input type="date" id="fecha_fin_reserva" name="fecha_fin_reserva" value="{{ fecha_fin_reserva }}" readonly>
-            <br>
-            <button type="submit">Confirmar Reserva</button>
+        <h2 class="text-center mt-5">Reservar Libro</h2>
+        <form action="{{ url_for('reservar_libro', libro_id=libro.libro_id) }}" method="post">
+            <div class="form-group">
+                <label for="fecha_reserva">Fecha de Reserva:</label>
+                <input type="text" class="form-control" id="fecha_reserva" value="{{ fecha_reserva }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="fecha_fin_reserva">Fecha de Fin de Reserva:</label>
+                <input type="text" class="form-control" id="fecha_fin_reserva" value="{{ fecha_fin_reserva }}" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
         </form>
     </div>
 </body>

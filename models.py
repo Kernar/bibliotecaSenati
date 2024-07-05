@@ -23,7 +23,6 @@ class Libro(db.Model):
     ubicacion = db.Column(db.String(100), nullable=False)
     en_reserva = db.Column(db.Boolean, nullable=False, default=False)
 
-
 class Prestamo(db.Model):
     __tablename__ = 'Prestamos'
     prestamo_id = db.Column(db.Integer, primary_key=True)
@@ -39,7 +38,8 @@ class Reserva(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('Usuarios.usuario_id'), nullable=False)
     libro_id = db.Column(db.Integer, db.ForeignKey('Libros.libro_id'), nullable=False)
     fecha_reserva = db.Column(db.Date, nullable=False)
-    estado_reserva = db.Column(db.Enum('activa', 'cancelada', 'completada'), nullable=False)
+    fecha_fin_reserva = db.Column(db.Date, nullable=False)
+    estado_reserva = db.Column(db.String(20), nullable=False)
 
 class HistorialPreferencia(db.Model):
     __tablename__ = 'Historial_Preferencias'

@@ -27,6 +27,8 @@
                 <td>{{ 'Sí' if libro.en_reserva else 'No' }}</td>
                 <td>
                     <a href="{{ url_for('modificar_libro', libro_id=libro.libro_id) }}">Modificar</a>
+                    
+                    <a href="{{ url_for('prestamo', libro_id=libro.libro_id) }}" class="btn btn-success">Prestar</a>
                 </td>
             </tr>
             {% endfor %}
